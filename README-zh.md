@@ -1,14 +1,16 @@
 # Docker 上的 IPsec VPN 服务器
 
-[![Build Status](https://travis-ci.org/hwdsl2/docker-ipsec-vpn-server.svg?branch=master)](https://travis-ci.org/hwdsl2/docker-ipsec-vpn-server) [![GitHub Stars](https://img.shields.io/github/stars/hwdsl2/docker-ipsec-vpn-server.svg?maxAge=86400)](https://github.com/hwdsl2/docker-ipsec-vpn-server/stargazers) [![Docker Stars](https://img.shields.io/docker/stars/hwdsl2/ipsec-vpn-server.svg?maxAge=86400)](https://hub.docker.com/r/hwdsl2/ipsec-vpn-server) [![Docker Pulls](https://img.shields.io/docker/pulls/hwdsl2/ipsec-vpn-server.svg?maxAge=86400)](https://hub.docker.com/r/hwdsl2/ipsec-vpn-server)
+[![Build Status](https://travis-ci.org/wsmlby/docker-ipsec-vpn-server.svg?branch=master)](https://travis-ci.org/wsmlby/docker-ipsec-vpn-server) [![GitHub Stars](https://img.shields.io/github/stars/wsmlby/docker-ipsec-vpn-server.svg?maxAge=86400)](https://github.com/wsmlby/docker-ipsec-vpn-server/stargazers) [![Docker Stars](https://img.shields.io/docker/stars/wsmlby/ipsec-vpn-server.svg?maxAge=86400)](https://hub.docker.com/r/wsmlby/ipsec-vpn-server) [![Docker Pulls](https://img.shields.io/docker/pulls/wsmlby/ipsec-vpn-server.svg?maxAge=86400)](https://hub.docker.com/r/wsmlby/ipsec-vpn-server)
 
 使用这个 Docker 镜像快速搭建 IPsec VPN 服务器。支持 `IPsec/L2TP` 和 `Cisco IPsec` 协议。
+
+# 本镜像基于 hwdsl2/docker-ipsec-vpn-server 修改得来，仅支持Chrome OS
 
 本镜像以 Debian 9 (Stretch) 为基础，并使用 [Libreswan](https://libreswan.org) (IPsec VPN 软件) 和 [xl2tpd](https://github.com/xelerance/xl2tpd) (L2TP 服务进程)。
 
 [**&raquo; 另见： IPsec VPN Server on Ubuntu, Debian and CentOS**](https://github.com/hwdsl2/setup-ipsec-vpn/blob/master/README-zh.md)
 
-*其他语言版本: [English](https://github.com/hwdsl2/docker-ipsec-vpn-server), [简体中文](https://github.com/hwdsl2/docker-ipsec-vpn-server/blob/master/README-zh.md).*
+*其他语言版本: [English](https://github.com/wsmlby/docker-ipsec-vpn-server), [简体中文](https://github.com/wsmlby/docker-ipsec-vpn-server/blob/master/README-zh.md).*
 
 #### 目录
 
@@ -29,10 +31,10 @@
 
 ## 下载
 
-预构建的可信任镜像可在 [Docker Hub registry](https://hub.docker.com/r/hwdsl2/ipsec-vpn-server/) 下载：
+预构建的可信任镜像可在 [Docker Hub registry](https://hub.docker.com/r/wsmlby/ipsec-vpn-server/) 下载：
 
 ```
-docker pull hwdsl2/ipsec-vpn-server
+docker pull wsmlby/ipsec-vpn-server
 ```
 
 或者，你也可以自己从 GitHub [编译源代码](#从源代码构建)。
@@ -41,7 +43,7 @@ docker pull hwdsl2/ipsec-vpn-server
 
 ### 环境变量
 
-这个 Docker 镜像使用以下三个变量，可以在一个 `env` 文件中定义 （[示例](https://github.com/hwdsl2/docker-ipsec-vpn-server/blob/master/vpn.env.example)）：
+这个 Docker 镜像使用以下三个变量，可以在一个 `env` 文件中定义 （[示例](https://github.com/wsmlby/docker-ipsec-vpn-server/blob/master/vpn.env.example)）：
 
 ```
 VPN_IPSEC_PSK=your_ipsec_pre_shared_key
@@ -74,7 +76,7 @@ docker run \
     -p 4500:4500/udp \
     -v /lib/modules:/lib/modules:ro \
     -d --privileged \
-    hwdsl2/ipsec-vpn-server
+    wsmlby/ipsec-vpn-server
 ```
 
 ### 获取 VPN 登录信息
@@ -130,7 +132,7 @@ docker exec -it ipsec-vpn-server ipsec whack --trafficstatus
 
 ## 重要提示
 
-*其他语言版本: [English](https://github.com/hwdsl2/docker-ipsec-vpn-server#important-notes), [简体中文](https://github.com/hwdsl2/docker-ipsec-vpn-server/blob/master/README-zh.md#重要提示).*
+*其他语言版本: [English](https://github.com/wsmlby/docker-ipsec-vpn-server#important-notes), [简体中文](https://github.com/wsmlby/docker-ipsec-vpn-server/blob/master/README-zh.md#重要提示).*
 
 **Windows 用户** 在首次连接之前需要[修改一次注册表](https://github.com/hwdsl2/setup-ipsec-vpn/blob/master/docs/clients-zh.md#windows-错误-809)，以解决 VPN 服务器 和/或 客户端与 NAT （比如家用路由器）的兼容问题。
 
@@ -150,13 +152,13 @@ docker exec -it ipsec-vpn-server ipsec whack --trafficstatus
 如需更新你的 Docker 镜像和容器，请按以下步骤进行：
 
 ```
-docker pull hwdsl2/ipsec-vpn-server
+docker pull wsmlby/ipsec-vpn-server
 ```
 
 如果 Docker 镜像已经是最新的，你会看到提示：
 
 ```
-Status: Image is up to date for hwdsl2/ipsec-vpn-server:latest
+Status: Image is up to date for wsmlby/ipsec-vpn-server:latest
 ```
 
 否则，将会下载最新版本。要更新你的 Docker 容器，首先在纸上记下你所有的 VPN 登录信息（参见上面的 "获取 VPN 登录信息"）。然后删除 Docker 容器： `docker rm -f ipsec-vpn-server`。最后按照 "如何使用本镜像" 的说明来重新创建它。
@@ -168,15 +170,15 @@ Status: Image is up to date for hwdsl2/ipsec-vpn-server:latest
 高级用户可以从 GitHub 下载并自行编译源代码：
 
 ```
-git clone https://github.com/hwdsl2/docker-ipsec-vpn-server.git
+git clone https://github.com/wsmlby/docker-ipsec-vpn-server.git
 cd docker-ipsec-vpn-server
-docker build -t hwdsl2/ipsec-vpn-server .
+docker build -t wsmlby/ipsec-vpn-server .
 ```
 
 若不需要改动源码，也可以这样：
 
 ```
-docker build -t hwdsl2/ipsec-vpn-server github.com/hwdsl2/docker-ipsec-vpn-server.git
+docker build -t wsmlby/ipsec-vpn-server github.com/wsmlby/docker-ipsec-vpn-server.git
 ```
 
 ### 在容器中运行 Bash shell
